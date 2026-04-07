@@ -224,3 +224,29 @@ th {
 .developer-credit strong {
     color: #ff9800; /* نفس لون موقعك لتمييز الاسم */
 }
+
+/* التعديل الخاص بالشاشات الصغيرة */
+@media (max-width: 600px) {
+    .container {
+        width: 98%; /* استغلال كامل عرض الشاشة */
+        padding: 15px;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr; /* جعل الأزرار فوق بعضها (زر واحد في كل سطر) */
+        gap: 10px;
+    }
+
+    .option-btn {
+        font-size: 28px; /* تصغير الخط قليلاً ليناسب العرض */
+        padding: 15px;
+    }
+
+    h1, h2 {
+        font-size: 1.5em; /* تصغير العنوان ليظهر كاملاً */
+    }
+
+    .developer-credit {
+        font-size: 12px; /* تصغير نص الحقوق ليناسب الشاشة */
+    }
+}
