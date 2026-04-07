@@ -225,28 +225,38 @@ th {
     color: #ff9800; /* نفس لون موقعك لتمييز الاسم */
 }
 
-/* التعديل الخاص بالشاشات الصغيرة */
-@media (max-width: 600px) {
+/* حل ذكي وشامل لمشكلة الـ 8-bit على الجوال */
+@media (max-width: 480px) {
     .container {
-        width: 98%; /* استغلال كامل عرض الشاشة */
-        padding: 15px;
+        width: 100%; /* استغلال العرض الكامل */
+        padding: 10px;
+        border: none; /* إزالة الإطار لتوفير مساحة */
+    }
+
+    h2#question-text {
+        font-size: 1.2em; /* تصغير نص السؤال ليظهر في سطرين */
+        margin-bottom: 15px;
     }
 
     .options-grid {
-        grid-template-columns: 1fr; /* جعل الأزرار فوق بعضها (زر واحد في كل سطر) */
-        gap: 10px;
+        grid-template-columns: 1fr; /* وضع الأزرار فوق بعضها */
+        gap: 8px; /* تقليل المسافات */
     }
 
     .option-btn {
-        font-size: 28px; /* تصغير الخط قليلاً ليناسب العرض */
-        padding: 15px;
+        font-size: 24px; /* تصغير الخط بما يكفي ليتسع رقم 8-bit في سطر واحد */
+        padding: 12px;
+        letter-spacing: 1px; /* إضافة مسافة بسيطة بين الأرقام لسهولة القراءة */
+        border-width: 2px;
     }
 
-    h1, h2 {
-        font-size: 1.5em; /* تصغير العنوان ليظهر كاملاً */
+    .header {
+        font-size: 16px; /* تصغير نص العداد والوقت */
     }
 
-    .developer-credit {
-        font-size: 12px; /* تصغير نص الحقوق ليناسب الشاشة */
+    input[type="number"],
+    input[type="text"],
+    select {
+        font-size: 18px; /* تصغير حقول الإدخال في القائمة الرئيسية */
     }
 }
