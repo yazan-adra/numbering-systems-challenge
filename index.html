@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي أنظمة العد</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen" class="screen active">
+            <h1>تحدي أنظمة العد</h1>
+           <div class="input-group">
+                <label for="system-select">الأنظمة المشمولة في التحدي:</label>
+                <select id="system-select" style="width: 100%; padding: 15px; font-size: 24px; border: 3px solid #ccc; border-radius: 5px;">
+                    <option value="all">الكل (ثنائي، عشري، ست عشري)</option>
+                    <option value="bin_hex">ثنائي وست عشري فقط</option>
+                    <option value="bin_dec">ثنائي وعشري فقط</option>
+                    <option value="dec_hex">عشري وست عشري فقط</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="bit-length">حجم الخانات (مستوى الصعوبة):</label>
+                <select id="bit-length" style="width: 100%; padding: 15px; font-size: 24px; border: 3px solid #ccc; border-radius: 5px;">
+                    <option value="8">8-bit (أرقام حتى 255)</option>
+                    <option value="4">4-bit (أرقام حتى 15)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="student-name">اسم الطالب (الاسم الثنائي):</label>
+                <input type="text" id="student-name" placeholder="أدخل اسمك هنا..." autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="student-class">الفئة:</label>
+                <select id="student-class" style="width: 100%; padding: 15px; font-size: 24px; border: 3px solid #ccc; border-radius: 5px;">
+                    <option value="الفئة الأولى">الفئة الأولى</option>
+                    <option value="الفئة الثانية">الفئة الثانية</option>
+                    <option value="الفئة الثالثة">الفئة الثالثة</option>
+                    <option value="الفئة الرابعة">الفئة الرابعة</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="num-questions">كم عدد الأسئلة التي تريد حلها؟</label>
+                <input type="number" id="num-questions" value="5" min="1" max="50">
+            </div>
+
+            <div class="input-group">
+                <label for="time-per-question">الوقت المخصص لكل سؤال (بالثواني):</label>
+                <input type="number" id="time-per-question" value="10" min="3" max="60">
+            </div>
+            
+            <button id="start-btn">ابدأ التحدي <i class="fas fa-play"></i> </button>
+            <button id="show-leaderboard-btn" class="secondary-btn">عرض نتائج الطلاب <i class="fas fa-list-ol"></i></button>
+        </div>
+
+         <div class="developer-credit">
+    <i class="fas fa-code"></i> تم التطوير بواسطة: <strong> Yazan Adra</strong> - هندسة التحكم والأنظمة الحاسوبية <i class="fas fa-microchip"></i>
+</div>
+
+        <div id="quiz-screen" class="screen hidden">
+            <div class="header">
+                <span id="question-counter">السؤال: 0/0</span>
+                <span id="timer-display">الوقت: 0 ثانية</span>
+            </div>
+            <div class="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+            
+            <h2 id="question-text">جاري التحميل...</h2>
+            
+            <div id="options-container" class="options-grid">
+                </div>
+            <div id="feedback-message" class="feedback-msg"></div>
+        </div>
+
+        <div id="result-screen" class="screen hidden">
+            <h2>اكتمل التحدي!</h2>
+            <div class="result-stats">
+                <p>إجاباتك الصحيحة: <span id="final-score" class="highlight-green"></span> من <span id="total-questions"></span></p>
+                <p>الوقت الإجمالي المستغرق: <span id="total-time" class="highlight-blue"></span> ثانية</p>
+            </div>
+            <button id="restart-btn">طالب جديد</button>
+        </div>
+
+        <div id="leaderboard-screen" class="screen hidden">
+            <h2>سجل نتائج الطلاب</h2>
+
+            <div style="margin-bottom: 30px; padding: 15px; border: 3px solid #d32f2f; border-radius: 10px; background-color: #fffaf9;">
+               <h3 style="color: #d32f2f; margin-bottom: 10px;">
+    <i class="fas fa-trophy" style="color: gold;"></i> قائمة متصدرين الدفعة (عدد الاجابات الصحيحة والسرعة) <i class="fas fa-trophy" style="color: gold;"></i>
+</h3>
+                <div class="table-container">
+                    <table id="global-leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>ر</th>
+                                <th>الاسم</th>
+                                <th>الفئة</th>
+                                <th>النتيجة</th>
+                                <th>الوقت</th>
+                            </tr>
+                        </thead>
+                        <tbody id="global-leaderboard-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px; text-align: right;">
+                <label for="view-class-filter" style="font-weight: bold;">ترتيب الطلاب حسب الفئة:</label>
+                <select id="view-class-filter" style="padding: 10px; font-size: 20px; width: 100%; margin-top: 10px; border: 3px solid #ccc; border-radius: 5px;">
+                    <option value="الفئة الأولى">الفئة الأولى</option>
+                    <option value="الفئة الثانية">الفئة الثانية</option>
+                    <option value="الفئة الثالثة">الفئة الثالثة</option>
+                    <option value="الفئة الرابعة">الفئة الرابعة</option>
+                </select>
+
+                <input type="text" id="search-student" placeholder="ابحث عن اسم طالب في هذه الفئة...">
+            </div>
+
+            <div class="table-container">
+                <table id="class-leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>ر</th>
+                            <th>الاسم</th>
+                            <th>النتيجة</th>
+                            <th>الوقت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        </tbody>
+                </table>
+            </div>
+
+            <button id="close-leaderboard-btn">العودة للبداية <i class="fas fa-undo"></i></button>
+            <button id="clear-leaderboard-btn" class="danger-btn">مسح السجل بالكامل <i class="fas fa-trash-alt"></i></button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
