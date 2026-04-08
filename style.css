@@ -227,7 +227,7 @@ th {
 }
 
 /* حل ذكي وشامل لمشكلة الـ 8-bit على الجوال */
-@media (max-width: 480px) {
+@media (max-width: 850px) {
     .container {
         width: 100%; /* استغلال العرض الكامل */
         padding: 10px;
