@@ -260,3 +260,42 @@ th {
         font-size: 18px; /* تصغير حقول الإدخال في القائمة الرئيسية */
     }
 }
+
+/* الإعداد الافتراضي: إخفاء رسالة التدوير */
+#rotate-message {
+    display: none;
+}
+
+/* قاعدة CSS تعمل فقط إذا كان الجهاز جوالاً وشاشته بالطول (Portrait) */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    /* إخفاء كل محتوى الموقع */
+    .container, .developer-credit {
+        display: none !important;
+    }
+    
+    /* إظهار رسالة التدوير لتملأ الشاشة */
+    #rotate-message {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ff9800; /* لون برتقالي مميز */
+        color: white;
+        z-index: 9999;
+        text-align: center;
+        padding: 20px;
+    }
+}
+
+/* حركة بسيطة لأيقونة الهاتف لتدور يميناً ويساراً */
+@keyframes tilt {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-90deg); }
+    50% { transform: rotate(-90deg); }
+    100% { transform: rotate(0deg); }
+}
